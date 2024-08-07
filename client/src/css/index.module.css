@@ -1,0 +1,340 @@
+body{
+  background-color: rgb(235, 235, 235);
+}
+.sidebar {
+    width: 250px;
+    height: 100%; /* Adjust based on the height of the topbar */
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background: rgb(32,32,32);
+    background: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(76,76,76,1) 70%, rgba(125,125,125,1) 100%);
+  }
+.sidebar-dept-logo img{
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.sidebar-buttons {
+    display: block;
+    border-top:2px solid #ffffff;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    padding-top: 22px;
+    text-decoration: none;
+    margin: 5px 10px 15px;
+}
+
+.sidebar-buttons:hover {
+    color: #325bff;
+    font-size: 1.1em;
+} 
+
+
+.dropdown-s {
+  position: relative;
+}
+
+.dropdown-content{
+  margin-top: 35px;
+}
+.dropdown-content-s {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  background-color: #444;
+  z-index: 1;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(61, 61, 61, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  width: 250px; /* Default width for dropdown */
+}
+
+.dropdown-content-s a {
+  padding: 10px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content-s a:hover {
+  background-color: #555;
+}
+
+.dropdown-s .dropdown-content-s {
+  display: flex;
+}
+
+.main-content {
+  width: calc(100% - 260px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.topbar {
+  position: fixed;
+  top: 0; /* Changed to place the topbar at the top */
+  right: 0; /* Align to the right */
+  width: calc(100% - 250px); /* Adjust based on sidebar width */
+  height: 4rem;
+  border-radius: 0; /* Remove border radius */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  background: rgb(228, 228, 228);
+}
+
+.userName {
+  margin-right: 10px; /* Space between user name and profile image */
+  color: #333;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.content {
+  margin-left: 270px;
+  margin-right: 10px;
+  margin-top: 75px;
+  padding-bottom: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.cardcontainer {
+  display: flex;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-top: 5px;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-height: calc(100vh - 120px); /* Adjust based on your layout */
+  overflow-y: auto; /* Enable scrolling within the card container */
+}
+
+.card {
+  background: rgb(238, 238, 238);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  width: calc(25% - 20px); /* 4 cards per row */
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px 5px 3px 3px;
+}
+
+
+.card h2 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #333;
+  align-self: flex-end;
+}
+
+.profile {
+  position: relative;
+  display: flex; /* Use flexbox to center items */
+  align-items: center; /* Vertically center items */
+}
+
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.profile:hover .dropdown-content {
+  display: block;
+}
+
+.circularform{
+  width: 60%;
+  margin: 10px;
+  margin-left: 2px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.content h1{
+  color: #2B8CFF;
+}
+.title {
+  margin-right: auto; /* Pushes logo to the left */
+  padding-left: 20px;
+  color: #414141;
+}
+.textarea {
+  width: calc(100% - 1px);
+  padding: 10px;
+  background: none;
+  border: .1px solid rgb(189, 189, 189);
+  border-radius: 10px;
+  outline: none;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+}
+/* index.module.css */
+
+.table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures that table borders are collapsed */
+}
+
+.table th, .table td {
+  padding: 12px; /* Add padding inside table cells */
+  border: 1px solid #ddd; /* Add a border around cells */
+  text-align: left; /* Align text to the left in cells */
+}
+
+.table th {
+  background-color: #f4f4f4; /* Light background color for headers */
+  font-size: 1.2rem; /* Larger font size for headers */
+  font-weight: bold; /* Make header text bold */
+}
+
+.table td {
+  font-size: 1rem; /* Font size for table data */
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternate row colors for readability */
+}
+
+/* Media queries for responsive layout */
+@media (max-width: 1200px) {
+    .card {
+        width: calc(33.33% - 20px); /* 3 cards per row */
+    }
+    .title{
+      font-size: .9rem;
+    }
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: calc(50% - 20px); /* 2 cards per row */
+  }
+  .title {
+    font-size: 0.7rem;
+  }
+  .sidebar {
+    width: 200px; /* Reduced sidebar width */
+  }
+  .sidebar-dept-logo img {
+    height: 40px; /* Reduced logo size */
+  }
+  .sidebar-buttons {
+    font-size: 0.9rem; /* Reduced button font size */
+    padding: 8px; /* Reduced button padding */
+  }
+  .topbar {
+    width: calc(100% - 200px); /* Adjust topbar width */
+  }
+  .content {
+    margin-left: 220px; /* Adjust content margin */
+  }
+  .userName{
+    font-size: 1.1em;
+  }
+  .content h1{
+    font-size: 1.3em;
+  }
+  .circularform{
+    width: 95%;
+    margin: 10px;
+    margin-left: 2px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: calc(100% - 20px); /* 1 card per row */
+  }
+
+  .title {
+    font-size: 0.7rem;
+  }
+
+  .sidebar {
+    width: 80px; /* Further reduced sidebar width */
+  }
+
+  .sidebar-dept-logo {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    margin-bottom: 20px; /* Space below the logo */
+  }
+  
+  .sidebar-dept-logo img {
+    content: url('../../public/images/psg.png');
+    height: 40px;
+  } 
+
+  .sidebar-buttons {
+    font-size: 0rem; /* Hide button text */
+    padding: 0;
+    padding-top: 10px;
+  }
+
+  .sidebar-buttons i {
+    font-size: 1.2rem; /* Adjust icon size if needed */
+  }
+
+  .topbar {
+    width: calc(100% - 80px); /* Adjust topbar width to match sidebar */
+  }
+
+  .content {
+    margin-left: 90px; /* Adjust content margin to match sidebar width */
+  }
+  .profile img {
+    width: 33px;
+    height: 33px;
+  }
+  .userName{
+    font-size: .9em;
+  }
+  
+}
+
+
+
