@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styles from '../css/index.module.css'; // Import the CSS module
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
 const AdminSidebar = ({ loadContent }) => {
     const [isAcademicDropdownOpen, setIsAcademicDropdownOpen] = useState(false);
     const [isRepositoryDropdownOpen, setIsRepositoryDropdownOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for toggling sidebar
 
     const toggleAcademicDropdown = (e) => {
         e.preventDefault();
@@ -23,8 +23,12 @@ const AdminSidebar = ({ loadContent }) => {
         loadContent(e, page);
     };
 
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
     return (
-        <div className={styles.sidebar}>
+        <div className={`${styles.sidebar} ${isSidebarOpen ? styles['sidebar-open'] : ''}`}>
             <a className={styles['sidebar-dept-logo']} href="#page1" onClick={(e) => loadContent(e, 'page1')}>
                 <img src="/images/logo.png" alt="Logo" />
             </a>
@@ -63,8 +67,13 @@ const AdminSidebar = ({ loadContent }) => {
             <a className={styles['sidebar-buttons']} href="#page5" onClick={(e) => loadContent(e, 'page5')}>
                 <i className="fas fa-check-circle"></i> Attendance
             </a>
+
+            {/* Toggle Button */}
+            <button className={styles['toggle-button']} onClick={toggleSidebar}>
+                <i className={isSidebarOpen ? 'fas fa-chevron-left' : 'fas fa-chevron-right'}></i>
+            </button>
         </div>
     );
-}
+};
 
 export default AdminSidebar;

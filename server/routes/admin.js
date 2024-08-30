@@ -111,9 +111,11 @@ router.post('/circulars', upload.single('image'), (req, res) => {
   
   router.get('/circulars', (req, res) => {
     Circular.find()
+        .sort({ createdAt: -1 })  
         .then(circulars => res.json(circulars))
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
 
 router.get('/viewallgrievances', async (req, res) => {
   try {
