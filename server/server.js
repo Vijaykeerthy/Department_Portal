@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost:27017/departmentportal', { useNewUrlParser
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-// Serve static files from the 'uploads' folder
+// Serve static files from the 'uploads' folder 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes

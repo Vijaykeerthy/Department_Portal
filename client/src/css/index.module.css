@@ -277,7 +277,7 @@ body{
   }
   .sidebar {
     width: 250px;
-    transform: translateX(-101%); /* Initially hidden */
+    transform: translateX(-100%); /* Initially hidden */
 }
 
 .sidebar-open {
