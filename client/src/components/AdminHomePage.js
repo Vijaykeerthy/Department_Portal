@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate for redire
 import AdminSidebar from './AdminSidebar';
 import AdminTopbar from './AdminTopbar';
 import CircularPosting from './CircularPosting';
+import AcademicSchedulePosting from './AcademicSchedulePosting';
+import AcademicScheduleView from './AcademicScheduleView';
 import Dashboard from './Dashboard';
 import styles from '../css/index.module.css';
 import AdminRespondGrievance from './AdminRespondGrievance'
@@ -41,6 +43,10 @@ const AdminHomePage = () => {
         return <CircularPosting />;
       case 'respondgrievance':
         return <AdminRespondGrievance />;
+      case 'schedulepost':
+        return <AcademicSchedulePosting />
+      case 'scheduleview':
+        return <AcademicScheduleView />;
       case 'dashboard':
       default:
         return <Dashboard />;

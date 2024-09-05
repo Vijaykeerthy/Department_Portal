@@ -26,15 +26,16 @@ mongoose.connect('mongodb://localhost:27017/departmentportal', { useNewUrlParser
 
 // Serve static files from the 'uploads' folder 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/academic_schedules', express.static(path.join(__dirname, 'academic_schedules')));
+
 
 // Routes
 const studentRoutes = require('./routes/student');
 app.use('/api/student', studentRoutes);
 const adminRoutes = require('./routes/admin');
 app.use('/api/admin', adminRoutes);
-
-
-
+const scheduleRoutes = require('./routes/scheduleRoutes'); 
+app.use('/api/admin', scheduleRoutes);
 
 app.post('/api/check-admin-session', async (req, res) => {
   const { userId } = req.body;

@@ -45,8 +45,8 @@ const AdminSidebar = ({ loadContent }) => {
                 </a>
                 {isAcademicDropdownOpen && (
                     <div className={styles['dropdown-content-s']}>
-                        <a href="#first-year" onClick={(e) => handleDropdownClick(e, 'firstYear', setIsAcademicDropdownOpen)}>First Year</a>
-                        <a href="#second-year" onClick={(e) => handleDropdownClick(e, 'secondYear', setIsAcademicDropdownOpen)}>Second Year</a>
+                        <a href="#post" onClick={(e) => handleDropdownClick(e, 'schedulepost', setIsAcademicDropdownOpen)}>Post Schedule</a>
+                        <a href="#view" onClick={(e) => handleDropdownClick(e, 'scheduleview', setIsAcademicDropdownOpen)}>View Schedule</a>
                     </div>
                 )}
             </div>
