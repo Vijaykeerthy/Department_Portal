@@ -19,7 +19,12 @@
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
-
+.loginsignup-button{
+    background-color: #6d6d6d;
+}
+.loginsignup-button:hover{
+    background-color: #5c5c5c;
+}
 .left-section, .right-section {
     flex: 1;
     padding: 40px;

@@ -83,7 +83,7 @@ const StudentLoginPage = () => {
                 required 
               />
             </div>
-            <button type="submit">Login</button>
+            <button className={styles['loginsignup-button']} type="submit">Login</button>
           </form>
         </div>
       </div>
