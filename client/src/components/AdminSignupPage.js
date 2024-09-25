@@ -139,7 +139,7 @@ const AdminSignupPage = () => {
             />
             {confirmPasswordError && <span className={styles['error-message']}>{confirmPasswordError}</span>}
           </div>
-          <button type="submit">Signup</button>
+          <button className={styles['loginsignup-button']} type="submit">Signup</button>
         </form>
       </div>
     </div>

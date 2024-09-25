@@ -158,7 +158,6 @@ const StudentSignupPage = () => {
               {errors.emailError && <span className={styles['error-message']}>{errors.emailError}</span>}
             </div>
             <div className={styles['input-group']}>
-              <label>Group:</label>
               <select value={group} onChange={handleGroupChange} required>
                 <option value="">Select Group</option>
                 <option value="G1">G1</option>
@@ -190,7 +189,7 @@ const StudentSignupPage = () => {
               />
               {errors.confirmPasswordError && <span className={styles['error-message']}>{errors.confirmPasswordError}</span>}
             </div>
-            <button type="submit">Signup</button>
+            <button className={styles['loginsignup-button']} type="submit">Signup</button>
           </form>
         </div>
       </div>
