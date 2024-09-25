@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
 const path = require('path');
 
 const app = express();
@@ -20,9 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/departmentportal', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://abusufiyan3147:fZXqtDNnTVdexiDj@cluster0.dp7wy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
+
 
 // Serve static files from the 'uploads' folder 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -49,6 +49,84 @@ app.post('/api/check-admin-session', async (req, res) => {
     res.json({ valid: false });
   }
 });
+
+
+const nodemailer = require('nodemailer');
+const Student = require('./models/Student');
+const Reminder = require('./models/ReminderSchema');
+const cron = require('node-cron');
+
+
+
+// Email setup using Nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // You can use any email service provider
+  auth: {
+    user: '23mx101@psgtech.ac.in',
+    pass: 'Abu@3147'
+  }
+});
+
+// Function to send emails
+async function sendReminderEmails(reminder) {
+  try {
+    let students;
+
+    // Check if reminder is for both groups
+    if (reminder.group === 'G1 & G2') {
+      // Find students in both G1 and G2
+      students = await Student.find({ group: { $in: ['G1', 'G2'] } });
+    } else {
+      // Find students based on the group specified in the reminder
+      students = await Student.find({ group: reminder.group });
+    }
+
+    // Compose email
+    const mailOptions = {
+      from: '23mx101@psgtech.ac.in',
+      to: students.map(student => student.email), 
+      subject: `Reminder: ${reminder.title} for ${reminder.subject}`,
+      text: `Dear Students,\n\nThis is a reminder for the upcoming <b>${reminder.title}</b> of ${reminder.subject}, scheduled on ${reminder.date.toDateString()} at ${reminder.time}.\n\nPrepare accordingly.\n\nBest Regards,\nDepartment of Computer Application`
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    console.log('Reminder email sent successfully');
+  } catch (error) {
+    console.error('Error sending reminder email:', error);
+  }
+}
+
+// Function to check reminders for the next day and send emails
+async function checkAndSendEmails() {
+  try {
+    const currentDate = new Date();
+    const nextDay = new Date();
+    nextDay.setDate(currentDate.getDate() + 1); // Get next day's date
+
+    // Find reminders that are scheduled for the next day
+    const reminders = await Reminder.find({
+      date: {
+        $gte: new Date(nextDay.setHours(0, 0, 0, 0)), // Start of next day
+        $lt: new Date(nextDay.setHours(23, 59, 59, 999)) // End of next day
+      }
+    });
+
+    // Send emails for each reminder
+    for (const reminder of reminders) {
+      await sendReminderEmails(reminder);
+    }
+  } catch (error) {
+    console.error('Error checking reminders:', error);
+  }
+}
+
+// Schedule a daily check at midnight (00:00) to look for reminders for the next day
+cron.schedule('00 10 * * *', async () => {
+  console.log('Running daily reminder check at 10:00 AM...');
+  await checkAndSendEmails();
+});
+
 
 
 app.listen(port, () => {

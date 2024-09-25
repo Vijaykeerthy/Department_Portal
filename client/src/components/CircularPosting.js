@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../css/index.module.css'; // Import the CSS module
+import styles from '../css/index.module.css';
 
 const CircularPosting = () => {
     const [title, setTitle] = useState('');
@@ -11,12 +11,26 @@ const CircularPosting = () => {
     };
 
     const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
+        const file = e.target.files[0];
+        if (file) {
+            // Check if the file is an image
+            if (file.type.startsWith('image/')) {
+                setImage(file);
+            } else {
+                window.alert('Please upload a valid image file.');
+                e.target.value = null; // Reset the file input
+            }
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
+        if (!image) {
+            window.alert('Please select an image to upload.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('image', image);
@@ -25,7 +39,7 @@ const CircularPosting = () => {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-            withCredentials: true
+            withCredentials: true,
         })
         .then(response => {
             console.log('Circular saved:', response.data);
@@ -42,23 +56,33 @@ const CircularPosting = () => {
     return (
         <div className={styles.content}>
             <div className={styles.circularform}>
-            <h1>Post Announcements</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title:</label>
-                    <input type="text" value={title} onChange={handleTitleChange} required />
-                </div>
-                <div>
-                    <label>Image:</label>
-                    <input type="file" onChange={handleImageChange} accept="image/*" required />
-                </div>
-                <br />
-                <button type="submit">Submit</button>
-            </form>
+                <h1>Post Announcements</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Title:</label>
+                        <input 
+                            type="text" 
+                            value={title} 
+                            onChange={handleTitleChange} 
+                            required 
+                            placeholder="Enter Announcement Title Here"
+                        />
+                    </div>
+                    <div>
+                        <label>Image:</label>
+                        <input
+                            type="file"
+                            onChange={handleImageChange}
+                            accept="image/*"
+                            required
+                        />
+                    </div>
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </div>
     );
 };
 
 export default CircularPosting;
- 

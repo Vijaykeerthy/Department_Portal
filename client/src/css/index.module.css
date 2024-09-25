@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(235, 235, 235);
+  background-color: rgba(198, 118, 169, 0.134) ;
 }
 .sidebar {
   width: 250px;
@@ -11,7 +11,9 @@ body{
   left: 0;
   top: 0;
   bottom: 0;
-  background: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(76,76,76,1) 70%, rgba(125,125,125,1) 100%);
+  /* background: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(76,76,76,1) 70%, rgba(125,125,125,1) 100%); */
+  background: rgb(198,118,169);
+  background: linear-gradient(180deg, rgba(198,118,169,1) 0%, rgba(146,142,203,1) 100%);
   transition: transform 0.3s ease-in-out; /* Smooth transition for sliding */
 }
 .sidebar-dept-logo img{
@@ -19,6 +21,14 @@ body{
   margin-bottom: 20px;
 }
 
+.toggle-button{
+    background: #e5e5e5;
+    color: rgb(0, 0, 0);
+}
+.toggle-button:hover{
+  background: #c6c6c6;
+  color: rgb(0, 0, 0);
+}
 .sidebar-buttons {
     display: block;
     border-top:2px solid #ffffff;
@@ -30,7 +40,7 @@ body{
 }
 
 .sidebar-buttons:hover {
-    color: #325bff;
+    color: #000000;
     font-size: 1.1em;
 } 
 
@@ -47,14 +57,14 @@ body{
   flex-direction: column;
   position: absolute;
   left: 0;
-  background-color: #444;
   z-index: 1;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(61, 61, 61, 0.75);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   width: 250px; /* Default width for dropdown */
+  background: rgb(198,118,169);
+  background: linear-gradient(180deg, rgba(198, 118, 169, 0.77) 0%, rgba(146, 142, 203, 0.704) 100%);
 }
 
 .dropdown-content-s a {
@@ -65,7 +75,9 @@ body{
 }
 
 .dropdown-content-s a:hover {
-  background-color: #555;
+  border-radius: 12px;
+  color: #000000;
+  background: linear-gradient(180deg, rgb(198, 118, 169) 0%, rgb(146, 142, 203) 100%);
 }
 
 .dropdown-s .dropdown-content-s {
@@ -89,9 +101,19 @@ body{
   color: white;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 5px;
   box-sizing: border-box;
   background: rgb(228, 228, 228);
+}
+.remindermarq{
+  position: fixed;
+  top: 20; 
+  right: 0; 
+  background-color: rgb(244, 239, 242) ;
+  left: 0;
+  color: #df3434;
+  margin-top: 90px;
+  margin-left: 250px;
 }
 
 .userName {
@@ -104,7 +126,7 @@ body{
 .content {
   margin-left: 270px;
   margin-right: 10px;
-  margin-top: 75px;
+  margin-top: 100px;
   padding-bottom: 20px;
   overflow-y: auto;
   box-sizing: border-box;
@@ -144,6 +166,11 @@ body{
   font-size: 1.2rem;
   color: #333;
   align-self: flex-end;
+}
+.Classgroup{
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(198,118,169,1);
 }
 
 .profile {
@@ -188,11 +215,13 @@ body{
   margin: 10px;
   margin-left: 2px;
   padding: 50px;
+  background-color: #efefef;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .content h1{
-  color: #2B8CFF;
+  color: rgba(146,142,203,1);
+  
 }
 .title {
   margin-right: auto; /* Pushes logo to the left */
@@ -205,6 +234,7 @@ body{
   background: none;
   border: .1px solid rgb(189, 189, 189);
   border-radius: 10px;
+  font-family: 'Poppins';
   outline: none;
   color: rgb(0, 0, 0);
   font-size: 1rem;
@@ -212,7 +242,14 @@ body{
   box-sizing: border-box;
 }
 /* index.module.css */
-
+.empty{
+  position: absolute;
+  top: 50%;
+  left: 58%;
+  font-size: 25px;
+  transform: translate(-50%, -50%); 
+  text-align: center; 
+}
 .table {
   width: 100%;
   border-collapse: collapse; /* Ensures that table borders are collapsed */
@@ -249,12 +286,23 @@ body{
 }
 
 @media (max-width: 900px) {
+  .empty{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 25px;
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+  }
   .card {
     width: calc(50% - 20px); /* 2 cards per row */
   }
   .topbar{
     margin-left: 0;
 
+  }
+  .remindermarq{
+    margin-left: 0;
   }
   .title {
     font-size: 0.7rem;
@@ -308,9 +356,26 @@ body{
   .card {
     width: calc(100% - 20px); /* 1 card per row */
   }
-
+  .cardcontainer {
+    padding-left: 0;
+  }
+  .content h1{
+    padding-left: 0 !important;
+  }
   .title {
     font-size: 0.7rem;
+    padding-left: 1px;
+  }
+  .empty{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 25px;
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+  }
+  .topbar {
+    padding-left: 20px;
   }
 }
 

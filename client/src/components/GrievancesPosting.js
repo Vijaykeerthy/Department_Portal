@@ -57,11 +57,11 @@ const GrievancePosting = () => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Title:</label>
-                        <input type="text" value={title} onChange={handleTitleChange} required />
+                        <input type="text" value={title} onChange={handleTitleChange} placeholder="Enter Grievance Title Here" required />
                     </div>
                     <div>
                         <label>Description:</label><br />
-                        <textarea value={description} className={styles.textarea} onChange={handleDescriptionChange} rows="3" cols="40" required />
+                        <textarea value={description} className={styles.textarea} onChange={handleDescriptionChange} rows="3" cols="40" placeholder="Enter Description" required />
                     </div>
                     <br />
                     <button type="submit">Submit</button>

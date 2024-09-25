@@ -6,6 +6,7 @@ const AcademicSchedulePosting = () => {
     const [group, setGroup] = useState('');
     const [semester, setSemester] = useState('');
     const [pdf, setPdf] = useState(null);
+    const [year, setYear] = useState(''); // State for the year
     const [errors, setErrors] = useState({});
 
     const handleGroupChange = (e) => {
@@ -18,6 +19,10 @@ const AcademicSchedulePosting = () => {
 
     const handlePdfChange = (e) => {
         setPdf(e.target.files[0]);
+    };
+
+    const handleYearChange = (e) => {
+        setYear(e.target.value);
     };
 
     const validateForm = () => {
@@ -37,6 +42,12 @@ const AcademicSchedulePosting = () => {
             newErrors.pdf = 'The uploaded file must be a PDF';
         }
 
+        if (!year) {
+            newErrors.year = 'Please enter a year';
+        } else if (!/^\d{4}$/.test(year)) { // Ensure the year is a 4-digit number
+            newErrors.year = 'Please enter a valid 4-digit year';
+        }
+
         setErrors(newErrors);
 
         return Object.keys(newErrors).length === 0;
@@ -53,6 +64,7 @@ const AcademicSchedulePosting = () => {
         formData.append('group', group);
         formData.append('semester', semester);
         formData.append('pdf', pdf);
+        formData.append('year', year); // Append the year to the form data
 
         axios.post('http://localhost:5000/api/admin/upload-academicschedule', formData, {
             headers: {
@@ -66,6 +78,7 @@ const AcademicSchedulePosting = () => {
             setGroup('');
             setSemester('');
             setPdf(null);
+            setYear(''); // Reset year
             setErrors({});
             window.location.reload();
         })
@@ -83,8 +96,8 @@ const AcademicSchedulePosting = () => {
                         <label>Group:</label><br/>
                         <select value={group} onChange={handleGroupChange} required>
                             <option value="">Select Group</option>
-                            <option value="g1">g1</option>
-                            <option value="g2">g2</option>
+                            <option value="G1">G1</option>
+                            <option value="G2">G2</option>
                         </select>
                         {errors.group && <span className={styles.error}>{errors.group}</span>}
                     </div>
@@ -98,6 +111,17 @@ const AcademicSchedulePosting = () => {
                             <option value="Semester 4">Semester 4</option>
                         </select>
                         {errors.semester && <span className={styles.error}>{errors.semester}</span>}
+                    </div>
+                    <div>
+                        <label>Year:</label>
+                        <input 
+                            type="text" 
+                            value={year} 
+                            onChange={handleYearChange} 
+                            placeholder="Enter year (e.g., 2024)" 
+                            required 
+                        />
+                        {errors.year && <span className={styles.error}>{errors.year}</span>}
                     </div>
                     <div>
                         <label>PDF:</label>

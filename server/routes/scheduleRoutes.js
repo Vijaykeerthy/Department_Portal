@@ -31,10 +31,10 @@ const fileFilter = (req, file, cb) => {
 
 router.post('/upload-academicschedule', multer({ storage: storage, fileFilter: fileFilter }).single('pdf'), async (req, res) => {
     try {
-        const { group, semester } = req.body;
+        const { group, semester, year } = req.body;
 
         // Validation
-        if (!group || !semester) {
+        if (!group || !semester || !year) {
             return res.status(400).json({ error: 'Group and semester are required.' });
         }
 
@@ -43,7 +43,7 @@ router.post('/upload-academicschedule', multer({ storage: storage, fileFilter: f
         }
 
         // Check if the combination of group and semester already exists
-        let schedule = await Schedule.findOne({ group, semester });
+        let schedule = await Schedule.findOne({ group, semester, year });
 
         if (schedule) {
             // Delete the old file
@@ -61,6 +61,7 @@ router.post('/upload-academicschedule', multer({ storage: storage, fileFilter: f
                 group,
                 semester,
                 pdfFileName: req.file.filename,
+                year,
                 uploadDate: new Date()
             });
         }
@@ -86,6 +87,36 @@ router.get('/view-academicschedule', async (req, res) => {
     } catch (error) {
         console.error('Error fetching schedules:', error);
         res.status(500).json({ message: 'Server error. Could not fetch schedules.' });
+    }
+});
+
+
+
+// DELETE route to delete a specific academic schedule
+router.delete('/delete-academicschedule/:id', async (req, res) => {
+    try {
+        const scheduleId = req.params.id;
+
+        // Find the schedule by ID
+        const schedule = await Schedule.findById(scheduleId);
+
+        if (!schedule) {
+            return res.status(404).json({ message: 'Schedule not found' });
+        }
+
+        // Delete the associated PDF file
+        const pdfFilePath = path.join(__dirname, '../academic_schedules/', schedule.pdfFileName);
+        if (fs.existsSync(pdfFilePath)) {
+            fs.unlinkSync(pdfFilePath); // Delete the file
+        }
+
+        // Delete the schedule from the database
+        await Schedule.findByIdAndDelete(scheduleId);
+
+        res.status(200).json({ message: 'Schedule deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting schedule:', error);
+        res.status(500).json({ message: 'Server error. Could not delete schedule.' });
     }
 });
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../css/index.module.css'; // Import the CSS module
+import RemindersMarquee from './ReminderMarquee';
+
 
 const AdminTopbar = () => {
     const userName = localStorage.getItem('userName'); // Get the user name from local storage
@@ -19,7 +21,7 @@ const AdminTopbar = () => {
     return (
         <div className={styles.topbar}>
             <div className={styles.title}>
-                <h2>MCA DEPARTMENT ACADEMIC PORTAL</h2>
+                <h2>MCA ACADEMIC PORTAL</h2>
             </div>
             <div className={styles.profile}>
                  <span className={styles.userName}>{userName}</span>
@@ -29,6 +31,7 @@ const AdminTopbar = () => {
                     <a href="#logout" onClick={handleLogout}>Logout</a>
                 </div>
             </div>
+            < RemindersMarquee />
         </div>
     );
 }

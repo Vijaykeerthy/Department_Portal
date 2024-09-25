@@ -47,43 +47,47 @@ const RespondGrievances = () => {
     return (
         <div className={styles.content}>
             <h1>Respond to Grievances</h1>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Posted Date</th>
-                        <th>Response</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {grievances.map(grievance => (
-                        <tr key={grievance._id}>
-                            <td>{grievance.title}</td>
-                            <td>{grievance.description}</td>
-                            <td>{new Date(grievance.postedDate).toLocaleDateString()}</td>
-                            <td>
-                                <textarea
-                                    value={grievance.response || ''}
-                                    className={styles.textarea}
-                                    onChange={(e) => handleResponseChange(grievance._id, e.target.value)}
-                                    rows="3"
-                                    cols="30"
-                                />
-                            </td>
-                            <td>
-                                <button
-                                    onClick={() => handleRespondClick(grievance._id)}
-                                    disabled={!grievance.response}
-                                >
-                                    Respond
-                                </button>
-                            </td>
+            {grievances.length === 0 ? (
+                <p className={styles.empty}>No grievances available.</p> // Display message when no grievances are present
+            ) : (
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Posted Date</th>
+                            <th>Response</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {grievances.map(grievance => (
+                            <tr key={grievance._id}>
+                                <td>{grievance.title}</td>
+                                <td>{grievance.description}</td>
+                                <td>{new Date(grievance.postedDate).toLocaleDateString()}</td>
+                                <td>
+                                    <textarea
+                                        value={grievance.response || ''}
+                                        className={styles.textarea}
+                                        onChange={(e) => handleResponseChange(grievance._id, e.target.value)}
+                                        rows="3"
+                                        cols="30"
+                                    />
+                                </td>
+                                <td>
+                                    <button
+                                        onClick={() => handleRespondClick(grievance._id)}
+                                        disabled={!grievance.response}
+                                    >
+                                        Respond
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
         </div>
     );
 };

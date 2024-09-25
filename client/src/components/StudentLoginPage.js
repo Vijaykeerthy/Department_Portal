@@ -40,9 +40,11 @@ const StudentLoginPage = () => {
           localStorage.setItem('userId', user.id);
           localStorage.setItem('userName', user.name);
           localStorage.setItem('userType', user.type);
+          localStorage.setItem('classgroup',user.studentgroup);
+          localStorage.setItem('year',user.year);
           navigate('/student');
         } else {
-          alert('Login failed. Please try again.');
+          alert('Please enter valid credentials');
         }
       } catch (error) {
         console.error('Login error:', error);

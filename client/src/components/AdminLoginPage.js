@@ -42,7 +42,7 @@ const AdminLoginPage = () => {
           localStorage.setItem('userType', user.type);
           navigate('/admin');
         } else {
-          alert('Login failed. Please try again.');
+          alert('Please enter valid credentials');
         }
       } catch (error) {
         console.error('Login error:', error);

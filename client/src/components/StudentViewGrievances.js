@@ -33,26 +33,30 @@ const ViewGrievances = () => {
     return (
         <div className={styles.content}>
             <h1>View Grievances</h1>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Posted Date</th>
-                        <th>Response</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {grievances.map(grievance => (
-                        <tr key={grievance._id}>
-                            <td>{grievance.title}</td>
-                            <td>{grievance.description}</td>
-                            <td>{new Date(grievance.postedDate).toLocaleDateString()}</td>
-                            <td>{grievance.response || 'No response yet'}</td>
+            {grievances.length > 0 ? (
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Posted Date</th>
+                            <th>Response</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {grievances.map(grievance => (
+                            <tr key={grievance._id}>
+                                <td>{grievance.title}</td>
+                                <td>{grievance.description}</td>
+                                <td>{new Date(grievance.postedDate).toLocaleDateString()}</td>
+                                <td>{grievance.response || 'No response yet'}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p className={styles.empty}>No Grievances Available.</p> // Message when no grievances are present
+            )}
         </div>
     );
 };

@@ -5,9 +5,11 @@ import AdminTopbar from './AdminTopbar';
 import CircularPosting from './CircularPosting';
 import AcademicSchedulePosting from './AcademicSchedulePosting';
 import AcademicScheduleView from './AcademicScheduleView';
-import Dashboard from './Dashboard';
+import AdminDashboard from './AdminDashboard';
+import SetReminder from './SetReminder';
 import styles from '../css/index.module.css';
 import AdminRespondGrievance from './AdminRespondGrievance'
+
 
 const AdminHomePage = () => {
   const [content, setContent] = useState('dashboard'); // Default content
@@ -47,9 +49,11 @@ const AdminHomePage = () => {
         return <AcademicSchedulePosting />
       case 'scheduleview':
         return <AcademicScheduleView />;
+      case 'setreminder':
+        return <SetReminder />;
       case 'dashboard':
       default:
-        return <Dashboard />;
+        return <AdminDashboard />;
     }
   };
 

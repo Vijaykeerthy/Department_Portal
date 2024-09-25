@@ -3,37 +3,25 @@ import axios from 'axios';
 import styles from '../css/index.module.css'; // Import the CSS module
 import pdf from '../Assets/Images/pdf.webp';
 
-const AcademicScheduleView = () => {
+const StudentAcademicSchedule = () => {
     const [schedules, setSchedules] = useState([]);
+    const classGroup = localStorage.getItem('classgroup'); // Get classGroup from local storage
+    const mxyear = localStorage.getItem('year'); // Get mxyear from local storage (e.g., 23)
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/admin/view-academicschedule')
             .then(response => {
-                setSchedules(response.data);
+                const filteredSchedules = response.data.filter(schedule => {
+                    // Extract last two digits of the schedule year and compare with mxyear
+                    const scheduleYearLastTwo = schedule.year.toString().slice(-2);
+                    return schedule.group === classGroup && scheduleYearLastTwo === mxyear;
+                });
+                setSchedules(filteredSchedules);
             })
             .catch(error => {
                 console.error('There was an error fetching the schedules!', error);
             });
-    }, []);
-
-    // Function to delete a specific schedule
-    const handleDelete = (scheduleId) => {
-        if (window.confirm('Are you sure you want to delete this schedule?')) { // Confirmation dialog
-            axios.delete(`http://localhost:5000/api/admin/delete-academicschedule/${scheduleId}`)
-                .then(response => {
-                    // Remove the deleted schedule from the state
-                    setSchedules(schedules.filter(schedule => schedule._id !== scheduleId));
-
-                    // Success alert
-                    alert('Schedule deleted successfully!');
-                })
-                .catch(error => {
-                    // Error alert
-                    alert('There was an error deleting the schedule!');
-                    console.error('Error:', error);
-                });
-        }
-    };
+    }, [classGroup, mxyear]);
 
     const openPdfInNewTab = (pdfUrl) => {
         window.open(pdfUrl, '_blank').focus();
@@ -49,7 +37,7 @@ const AcademicScheduleView = () => {
                             <div className={styles.cardPdf}>
                                 <h2>{schedule.title}</h2>
                                 <p className={styles.Classgroup}>Class {schedule.group}</p>
-                                <p>{schedule.semester} ({schedule.year})</p>
+                                <p>{schedule.semester}</p>
                                 <img 
                                     onClick={() => openPdfInNewTab(`http://localhost:5000/academic_schedules/${schedule.pdfFileName}`)} 
                                     style={{ height: 90, width: 120, margin: 20 }} 
@@ -64,24 +52,16 @@ const AcademicScheduleView = () => {
                                 >
                                     Download PDF
                                 </a>
-
-                                <br />
-                                {/* Delete button */}
-                                <button 
-                                    onClick={() => handleDelete(schedule._id)} 
-                                    style={{ backgroundColor: '#f44336', color: 'white', cursor: 'pointer', padding: '10px', marginTop: '10px', border: 'none', borderRadius: '5px' }}
-                                >
-                                    Delete
-                                </button>
                             </div>
+                            <br />
                         </div>
                     ))
                 ) : (
-                    <p className={styles.empty}>No academic schedules available.</p> 
+                    <p className={styles.empty}>Will Be Available Soon</p> // Message when no schedules are present
                 )}
             </div>
         </div>
     );
 };
 
-export default AcademicScheduleView;
+export default StudentAcademicSchedule;

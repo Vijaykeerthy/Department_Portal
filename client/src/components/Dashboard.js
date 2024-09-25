@@ -21,21 +21,25 @@ const Dashboard = () => {
 
     return (
         <div className={styles.content}> {/* Use styles object */}
-            {/* <h1>Circular</h1> */}
+            <h1 style={{ paddingLeft: 20 }}>Dashboard</h1>
             <br />
             <div className={styles.cardcontainer}> {/* Use styles object */}
-                {cards.map(card => (
-                    <div className={styles.card} key={card._id}> {/* Use styles object */}
-                        <img 
-                            src={`http://localhost:5000/${card.image}`} 
-                            alt={card.title} 
-                            className={styles.cardImage} 
-                            onClick={() => openImageInNewTab(`http://localhost:5000/${card.image}`)} // Add onClick event
-                            style={{ cursor: 'pointer' }} // Change cursor to pointer to indicate clickability
-                        />
-                        <h2>{card.title}</h2>
-                    </div>
-                ))}
+                {cards.length > 0 ? (
+                    cards.map(card => (
+                        <div className={styles.card} key={card._id}> {/* Use styles object */}
+                            <img 
+                                src={`http://localhost:5000/${card.image}`} 
+                                alt={card.title} 
+                                className={styles.cardImage} 
+                                onClick={() => openImageInNewTab(`http://localhost:5000/${card.image}`)} // Add onClick event
+                                style={{ cursor: 'pointer' }} // Change cursor to pointer to indicate clickability
+                            />
+                            <h2>{card.title}</h2>
+                        </div>
+                    ))
+                ) : (
+                    <p className={styles.empty}>No circulars available.</p> // Message to show when no circulars are present
+                )}
             </div>
         </div>
     );

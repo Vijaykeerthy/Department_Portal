@@ -13,6 +13,10 @@ const ScheduleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    year: {
+        type: String,
+        required: true
+    },
     uploadDate: {
         type: Date,
         default: Date.now

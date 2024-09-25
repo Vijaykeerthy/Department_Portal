@@ -21,10 +21,10 @@ router.post('/checksession', async (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-  const { name, rollNumber, email, password } = req.body;
+  const { name, rollNumber, email, group, password } = req.body;
 
   // Check if all fields are provided
-  if (!name || !rollNumber || !email || !password) {
+  if (!name || !rollNumber || !email || !password || !group) {
     return res.status(400).json({ message: 'All fields are required.' });
   }
 
@@ -49,6 +49,7 @@ router.post('/signup', async (req, res) => {
       name,
       rollNumber,
       email,
+      group,
       password: hashedPassword,
     });
 
@@ -73,13 +74,15 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
-
-    res.json({
+    const rollnoFirstTwoDigits = student.rollNumber.toString().slice(0, 2);
+      res.json({
       msg: 'Login successful',
       user: {
         id: student._id,
         name: student.name,
-        type: 'student'
+        type: 'student',
+        studentgroup: student.group,
+        year: rollnoFirstTwoDigits
       }
     });
   } catch (err) {

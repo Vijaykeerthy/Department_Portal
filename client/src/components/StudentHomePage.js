@@ -4,6 +4,7 @@ import StudentSidebar from './StudentSidebar';
 import StudentTopbar from './StudentTopbar';
 import Dashboard from './Dashboard';
 import GrievancesPosting from './GrievancesPosting';
+import AcademicSchedule from './StudentAcademicSchedule';
 import ViewGrievances from './StudentViewGrievances';
 import styles from '../css/index.module.css';
 
@@ -41,6 +42,8 @@ const StudentHomePage = () => {
         return <GrievancesPosting />
       case 'ViewGrievances':
         return <ViewGrievances />;
+      case 'AcademicSchedule':
+        return <AcademicSchedule />
         case 'dashboard':
       default:
         return <Dashboard />;
@@ -51,7 +54,6 @@ const StudentHomePage = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
 
-  // Render loading indicator while session check is in progress
   if (loading) {
     return <div>Loading...</div>;
   }
