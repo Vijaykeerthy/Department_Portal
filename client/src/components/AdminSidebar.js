@@ -4,17 +4,11 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const AdminSidebar = ({ loadContent }) => {
     const [isAcademicDropdownOpen, setIsAcademicDropdownOpen] = useState(false);
-    const [isRepositoryDropdownOpen, setIsRepositoryDropdownOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for toggling sidebar
 
     const toggleAcademicDropdown = (e) => {
         e.preventDefault();
         setIsAcademicDropdownOpen(!isAcademicDropdownOpen);
-    };
-
-    const toggleRepositoryDropdown = (e) => {
-        e.preventDefault();
-        setIsRepositoryDropdownOpen(!isRepositoryDropdownOpen);
     };
 
     const handleDropdownClick = (e, page, setDropdownOpen) => {
@@ -53,17 +47,9 @@ const AdminSidebar = ({ loadContent }) => {
             <a className={styles['sidebar-buttons']} href="#setreminder" onClick={(e) => loadContent(e, 'setreminder')}>
                 <i className="fas fa-bullhorn"></i> Set Reminders
             </a>
-            <div className={styles['dropdown-s']}>
-                <a className={styles['sidebar-buttons']} href="#page3" onClick={toggleRepositoryDropdown}>
-                    <i className="fas fa-folder"></i> Repository
-                </a>
-                {isRepositoryDropdownOpen && (
-                    <div className={styles['dropdown-content-s']}>
-                        <a href="#repo1" onClick={(e) => handleDropdownClick(e, 'repo1', setIsRepositoryDropdownOpen)}>First Year</a>
-                        <a href="#repo2" onClick={(e) => handleDropdownClick(e, 'repo2', setIsRepositoryDropdownOpen)}>Second Year</a>
-                    </div>
-                )}
-            </div>
+            <a className={styles['sidebar-buttons']} href="#repository" onClick={(e) => loadContent(e, 'Repository')}>
+                <i className="fas fa-folder"></i> Repository
+            </a>
             <a className={styles['sidebar-buttons']} href="#page4" onClick={(e) => loadContent(e, 'respondgrievance')}>
                 <i className="fas fa-comments"></i> Grievances
             </a>

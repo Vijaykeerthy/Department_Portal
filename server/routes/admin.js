@@ -188,7 +188,7 @@
       return `${hours}:${minutes} ${ampm}`;
   };
   router.post('/set-reminder', async (req, res) => {
-    const { title, subject, group, date, time } = req.body;
+    const { title, subject, group, date, time, year } = req.body;
 
     // Basic validation (you can expand this as per your needs)
     if (!title || !subject || !group || !date || !time) {
@@ -204,6 +204,7 @@
             subject,
             group,
             date,
+            year,
             time: formattedTime 
         });
 

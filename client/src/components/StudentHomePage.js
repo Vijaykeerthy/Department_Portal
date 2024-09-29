@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import GrievancesPosting from './GrievancesPosting';
 import AcademicSchedule from './StudentAcademicSchedule';
 import ViewGrievances from './StudentViewGrievances';
+import Repository from './Repository';
 import styles from '../css/index.module.css';
 
 const StudentHomePage = () => {
@@ -44,6 +45,8 @@ const StudentHomePage = () => {
         return <ViewGrievances />;
       case 'AcademicSchedule':
         return <AcademicSchedule />
+      case 'Repository':
+        return <Repository />
         case 'dashboard':
       default:
         return <Dashboard />;

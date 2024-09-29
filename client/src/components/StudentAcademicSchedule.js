@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../css/index.module.css'; // Import the CSS module
-import pdf from '../Assets/Images/pdf.webp';
+import pdf from '../Assets/Images/pdf.png';
 
 const StudentAcademicSchedule = () => {
     const [schedules, setSchedules] = useState([]);
@@ -37,10 +37,10 @@ const StudentAcademicSchedule = () => {
                             <div className={styles.cardPdf}>
                                 <h2>{schedule.title}</h2>
                                 <p className={styles.Classgroup}>Class {schedule.group}</p>
-                                <p>{schedule.semester}</p>
+                                <p>{schedule.semester} ({schedule.year.toString().slice(-2)}MX)</p>
                                 <img 
                                     onClick={() => openPdfInNewTab(`http://localhost:5000/academic_schedules/${schedule.pdfFileName}`)} 
-                                    style={{ height: 90, width: 120, margin: 20 }} 
+                                    style={{ height: 130, width: 130}} 
                                     src={pdf} 
                                     alt="PDF"
                                 />
@@ -48,9 +48,9 @@ const StudentAcademicSchedule = () => {
                                 <a 
                                     href={`http://localhost:5000/academic_schedules/${schedule.pdfFileName}`} 
                                     download={schedule.pdfFileName} 
-                                    style={{ color: 'blue', cursor: 'pointer', padding: '10px', textAlign: 'center', textDecoration: 'none' }}
+                                    style={{ color: 'blue', cursor: 'pointer', padding: '10px', fontWeight: 'bold', textAlign: 'center', textDecoration: 'none' }}
                                 >
-                                    Download PDF
+                                    Click Here to View
                                 </a>
                             </div>
                             <br />

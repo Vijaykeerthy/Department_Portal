@@ -3,15 +3,8 @@ import styles from '../css/index.module.css'; // Import the CSS module
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const StudentSidebar = ({ loadContent }) => {
-    const [isRepositoryDropdownOpen, setIsRepositoryDropdownOpen] = useState(false);
     const [isGrievanceDropdownOpen, setIsGrievanceDropdownOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for toggling sidebar
-
-
-    const toggleRepositoryDropdown = (e) => {
-        e.preventDefault();
-        setIsRepositoryDropdownOpen(!isRepositoryDropdownOpen);
-    };
 
     const toggleGrievanceDropdown = (e) => {
         e.preventDefault();
@@ -40,17 +33,9 @@ const StudentSidebar = ({ loadContent }) => {
                 <i className="fas fa-tachometer-alt"></i> Academic Schedule
             </a>
 
-            <div className={styles['dropdown-s']}>
-                <a className={styles['sidebar-buttons']} href="#page3" onClick={toggleRepositoryDropdown}>
-                    <i className="fas fa-folder"></i> Repository
-                </a>
-                {isRepositoryDropdownOpen && (
-                    <div className={styles['dropdown-content-s']}>
-                        <a href="#repo1" onClick={(e) => handleDropdownClick(e, 'repo1', setIsRepositoryDropdownOpen)}>First Year</a>
-                        <a href="#repo2" onClick={(e) => handleDropdownClick(e, 'repo2', setIsRepositoryDropdownOpen)}>Second Year</a>
-                    </div>
-                )}
-            </div>
+            <a className={styles['sidebar-buttons']} href="#repository" onClick={(e) => loadContent(e, 'Repository')}>
+                <i className="fas fa-folder"></i> Repository
+            </a>
             <div className={styles['dropdown-s']}>
                 <a className={styles['sidebar-buttons']} href="#page4" onClick={toggleGrievanceDropdown}>
                     <i className="fas fa-comments"></i> Grievances

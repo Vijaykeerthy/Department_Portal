@@ -27,7 +27,7 @@ const AdminTopbar = () => {
                  <span className={styles.userName}>{userName}</span>
                 <img src="/images/profile.png" alt="Profile" />
                 <div className={styles['dropdown-content']}>
-                    <a href="#profile">Profile</a>
+                    {/* <a href="#profile">Profile</a> */}
                     <a href="#logout" onClick={handleLogout}>Logout</a>
                 </div>
             </div>

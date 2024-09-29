@@ -26,6 +26,7 @@ mongoose.connect('mongodb+srv://abusufiyan3147:fZXqtDNnTVdexiDj@cluster0.dp7wy.m
 
 // Serve static files from the 'uploads' folder 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/Resources', express.static(path.join(__dirname, 'Resources')));
 app.use('/academic_schedules', express.static(path.join(__dirname, 'academic_schedules')));
 
 
@@ -36,6 +37,12 @@ const adminRoutes = require('./routes/admin');
 app.use('/api/admin', adminRoutes);
 const scheduleRoutes = require('./routes/scheduleRoutes'); 
 app.use('/api/admin', scheduleRoutes);
+const folderRoutes = require('./routes/folders');
+app.use('/api/folders', folderRoutes);
+const resourceRoutes = require('./routes/resourcesRoutes');
+app.use('/api/resources', resourceRoutes); // Use resource routes
+
+
 
 app.post('/api/check-admin-session', async (req, res) => {
   const { userId } = req.body;
@@ -68,6 +75,35 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send emails
+// async function sendReminderEmails(reminder) {
+//   try {
+//     let students;
+
+//     // Check if reminder is for both groups
+//     if (reminder.group === 'G1 & G2') {
+//       // Find students in both G1 and G2
+//       students = await Student.find({ group: { $in: ['G1', 'G2'] } });
+//     } else {
+//       // Find students based on the group specified in the reminder
+//       students = await Student.find({ group: reminder.group });
+//     }
+
+//     // Compose email
+//     const mailOptions = {
+//       from: '23mx101@psgtech.ac.in',
+//       to: students.map(student => student.email), 
+//       subject: `Reminder: ${reminder.title} for ${reminder.subject}`,
+//       text: `Dear Students,\n\nThis is a reminder for the upcoming "${reminder.title}" of ${reminder.subject}, scheduled on ${reminder.date.toDateString()} at ${reminder.time}.\n\nPrepare accordingly.\n\nBest Regards,\nDepartment of Computer Application`
+//     };
+
+//     // Send the email
+//     await transporter.sendMail(mailOptions);
+//     console.log('Reminder email sent successfully');
+//   } catch (error) {
+//     console.error('Error sending reminder email:', error);
+//   }
+// }
+
 async function sendReminderEmails(reminder) {
   try {
     let students;
@@ -75,10 +111,21 @@ async function sendReminderEmails(reminder) {
     // Check if reminder is for both groups
     if (reminder.group === 'G1 & G2') {
       // Find students in both G1 and G2
-      students = await Student.find({ group: { $in: ['G1', 'G2'] } });
+      students = await Student.find({
+        group: { $in: ['G1', 'G2'] },
+        rollNumber: { $regex: `^${reminder.year.toString().slice(-2)}` } // Match roll number starting with last 2 digits of reminder year
+      });
     } else {
-      // Find students based on the group specified in the reminder
-      students = await Student.find({ group: reminder.group });
+      // Find students based on the group specified in the reminder and the roll number check
+      students = await Student.find({
+        group: reminder.group,
+        rollNumber: { $regex: `^${reminder.year.toString().slice(-2)}` } // Match roll number starting with last 2 digits of reminder year
+      });
+    }
+
+    if (students.length === 0) {
+      console.log('No students found for the given group and year.');
+      return;
     }
 
     // Compose email
@@ -86,7 +133,7 @@ async function sendReminderEmails(reminder) {
       from: '23mx101@psgtech.ac.in',
       to: students.map(student => student.email), 
       subject: `Reminder: ${reminder.title} for ${reminder.subject}`,
-      text: `Dear Students,\n\nThis is a reminder for the upcoming <b>${reminder.title}</b> of ${reminder.subject}, scheduled on ${reminder.date.toDateString()} at ${reminder.time}.\n\nPrepare accordingly.\n\nBest Regards,\nDepartment of Computer Application`
+      text: `Dear Students,\n\nThis is a reminder for the upcoming "${reminder.title}" of ${reminder.subject}, scheduled on ${reminder.date.toDateString()} at ${reminder.time}.\n\nPrepare accordingly.\n\nBest Regards,\nDepartment of Computer Application`
     };
 
     // Send the email
@@ -120,11 +167,25 @@ async function checkAndSendEmails() {
     console.error('Error checking reminders:', error);
   }
 }
+async function deletePastReminders() {
+  try {
+    const currentDate = new Date();
+    // Delete reminders that are before today
+    const deletedReminders = await Reminder.deleteMany({
+      date: { $lt: new Date(currentDate.setHours(0, 0, 0, 0)) }
+    });
+    console.log(`${deletedReminders.deletedCount} past reminders deleted`);
+  } catch (error) {
+    console.error('Error deleting past reminders:', error);
+  }
+}
 
 // Schedule a daily check at midnight (00:00) to look for reminders for the next day
-cron.schedule('00 10 * * *', async () => {
-  console.log('Running daily reminder check at 10:00 AM...');
+cron.schedule('00 00 * * *', async () => {
   await checkAndSendEmails();
+  console.log('Running daily reminder check');
+  await deletePastReminders();
+  console.log('Running daily reminder deletion');
 });
 
 

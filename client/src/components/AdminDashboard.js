@@ -37,7 +37,7 @@ const AdminDashboard = () => {
 
     return (
         <div className={styles.content}>
-            <h1 style={{ paddingLeft: 20 }}>Dashboard</h1>
+            <h1 style={{ paddingLeft: 20 }}>Admin Dashboard</h1>
             <br />
             <div className={styles.cardcontainer}>
                 {cards.length > 0 ? (

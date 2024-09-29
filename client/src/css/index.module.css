@@ -132,6 +132,12 @@ body{
   box-sizing: border-box;
   flex: 1;
 }
+.contentinner{
+  padding-bottom: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  flex: 1;
+}
 
 .cardcontainer {
   display: flex;
@@ -273,6 +279,71 @@ body{
 
 .table tr:nth-child(even) {
   background-color: #f9f9f9; /* Alternate row colors for readability */
+}
+
+/* Popup form styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styles for button container */
+.buttonContainer {
+  display: flex; /* Use flexbox to align buttons */
+  flex-direction: row;
+  justify-content: space-between; /* Space between buttons */
+  margin-top: 10px; /* Add some space above the buttons */
+}
+
+.createButton {
+  background-color: rgb(3, 171, 3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1; /* Make button take available space */
+  margin-right: 10px; /* Space between buttons */
+}
+.createButton:hover{
+  background-color: rgb(3, 137, 3);
+  color: white;
+}
+.cancelButton {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1; /* Make button take available space */
+}
+.cancelButton:hover{
+  background-color: rgb(215, 2, 2);
+  color: white;
 }
 
 /* Media queries for responsive layout */

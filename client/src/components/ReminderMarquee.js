@@ -22,12 +22,14 @@ const RemindersMarquee = () => {
                 <marquee behavior="scroll" direction="left" scrollamount="10">
                 {reminders.map((reminder) => (
                         <span key={reminder._id}>
-                            <b>{reminder.title}</b> for {reminder.subject} on {new Date(reminder.date).toDateString()} at {reminder.time} | &nbsp;
+                            <b>{reminder.title}</b> for [{reminder.year.toString().slice(-2)}MX] {reminder.subject} on {new Date(reminder.date).toDateString()} at {reminder.time} | &nbsp;
                         </span>
                     ))}
                 </marquee>
             ) : (
+                <marquee behavior="scroll" direction="left" scrollamount="10">
                 <p>No reminders available.</p>
+                </marquee>
             )}
         </div>
     );

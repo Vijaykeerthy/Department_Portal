@@ -16,6 +16,10 @@ const reminderSchema = new mongoose.Schema({
         required: true,
         enum: ['G1', 'G2', 'G1 & G2']
     },
+    year: {
+        type: String,
+        required: true,
+    },
     date: {
         type: Date,
         required: true

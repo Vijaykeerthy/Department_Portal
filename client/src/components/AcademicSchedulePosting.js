@@ -6,7 +6,7 @@ const AcademicSchedulePosting = () => {
     const [group, setGroup] = useState('');
     const [semester, setSemester] = useState('');
     const [pdf, setPdf] = useState(null);
-    const [year, setYear] = useState(''); // State for the year
+    const [year, setYear] = useState(''); 
     const [errors, setErrors] = useState({});
 
     const handleGroupChange = (e) => {
@@ -113,7 +113,7 @@ const AcademicSchedulePosting = () => {
                         {errors.semester && <span className={styles.error}>{errors.semester}</span>}
                     </div>
                     <div>
-                        <label>Year:</label>
+                        <label>(MX)Year:</label>
                         <input 
                             type="text" 
                             value={year} 

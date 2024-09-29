@@ -9,6 +9,7 @@ import AdminDashboard from './AdminDashboard';
 import SetReminder from './SetReminder';
 import styles from '../css/index.module.css';
 import AdminRespondGrievance from './AdminRespondGrievance'
+import Repository from './Repository';
 
 
 const AdminHomePage = () => {
@@ -51,6 +52,8 @@ const AdminHomePage = () => {
         return <AcademicScheduleView />;
       case 'setreminder':
         return <SetReminder />;
+      case 'Repository':
+        return <Repository />
       case 'dashboard':
       default:
         return <AdminDashboard />;

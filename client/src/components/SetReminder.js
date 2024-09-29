@@ -8,6 +8,7 @@ const SetReminder = () => {
     const [group, setGroup] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+    const [year, setYear] = useState('');   
     const [errors, setErrors] = useState({});
 
     const handleTitleChange = (e) => {
@@ -28,6 +29,10 @@ const SetReminder = () => {
 
     const handleTimeChange = (e) => {
         setTime(e.target.value);
+    };
+
+    const handleYearChange = (e) => {
+        setYear(e.target.value);
     };
 
     const validateForm = () => {
@@ -53,6 +58,12 @@ const SetReminder = () => {
             newErrors.time = 'Please select a time';
         }
 
+        if (!year) {
+            newErrors.year = 'Please enter a year';
+        } else if (!/^\d{4}$/.test(year)) { // Ensure the year is a 4-digit number
+            newErrors.year = 'Please enter a valid 4-digit year';
+        }
+
         setErrors(newErrors);
 
         return Object.keys(newErrors).length === 0;
@@ -71,6 +82,7 @@ const SetReminder = () => {
             group,
             date,
             time,
+            year,   
         };
 
         axios.post('http://localhost:5000/api/admin/set-reminder', reminderData, {
@@ -87,6 +99,7 @@ const SetReminder = () => {
             setGroup('');
             setDate('');
             setTime('');
+            setYear('');
             setErrors({});
             window.location.reload();
         })
@@ -134,6 +147,17 @@ const SetReminder = () => {
                             <option value="G1 & G2">Both</option>
                         </select>
                         {errors.group && <span className={styles.error}>{errors.group}</span>}
+                    </div>
+                    <div>
+                    <label>(MX)Year:</label>
+                        <input 
+                            type="text" 
+                            value={year} 
+                            onChange={handleYearChange} 
+                            placeholder="Enter year (e.g., 2024)" 
+                            required 
+                        />
+                        {errors.year && <span className={styles.error}>{errors.year}</span>}
                     </div>
                     <div>
                         <label>Date:</label><br/>
