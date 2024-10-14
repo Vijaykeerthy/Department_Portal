@@ -74,36 +74,6 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Function to send emails
-// async function sendReminderEmails(reminder) {
-//   try {
-//     let students;
-
-//     // Check if reminder is for both groups
-//     if (reminder.group === 'G1 & G2') {
-//       // Find students in both G1 and G2
-//       students = await Student.find({ group: { $in: ['G1', 'G2'] } });
-//     } else {
-//       // Find students based on the group specified in the reminder
-//       students = await Student.find({ group: reminder.group });
-//     }
-
-//     // Compose email
-//     const mailOptions = {
-//       from: '23mx101@psgtech.ac.in',
-//       to: students.map(student => student.email), 
-//       subject: `Reminder: ${reminder.title} for ${reminder.subject}`,
-//       text: `Dear Students,\n\nThis is a reminder for the upcoming "${reminder.title}" of ${reminder.subject}, scheduled on ${reminder.date.toDateString()} at ${reminder.time}.\n\nPrepare accordingly.\n\nBest Regards,\nDepartment of Computer Application`
-//     };
-
-//     // Send the email
-//     await transporter.sendMail(mailOptions);
-//     console.log('Reminder email sent successfully');
-//   } catch (error) {
-//     console.error('Error sending reminder email:', error);
-//   }
-// }
-
 async function sendReminderEmails(reminder) {
   try {
     let students;
@@ -181,7 +151,7 @@ async function deletePastReminders() {
 }
 
 // Schedule a daily check at midnight (00:00) to look for reminders for the next day
-cron.schedule('00 00 * * *', async () => {
+cron.schedule('00 10 * * *', async () => {
   await checkAndSendEmails();
   console.log('Running daily reminder check');
   await deletePastReminders();
@@ -193,3 +163,34 @@ cron.schedule('00 00 * * *', async () => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
+  
+  // Function to send emails
+  // async function sendReminderEmails(reminder) {
+  //   try {
+  //     let students;
+  
+  //     // Check if reminder is for both groups
+  //     if (reminder.group === 'G1 & G2') {
+  //       // Find students in both G1 and G2
+  //       students = await Student.find({ group: { $in: ['G1', 'G2'] } });
+  //     } else {
+  //       // Find students based on the group specified in the reminder
+  //       students = await Student.find({ group: reminder.group });
+  //     }
+  
+  //     // Compose email
+  //     const mailOptions = {
+  //       from: '23mx101@psgtech.ac.in',
+  //       to: students.map(student => student.email), 
+  //       subject: `Reminder: ${reminder.title} for ${reminder.subject}`,
+  //       text: `Dear Students,\n\nThis is a reminder for the upcoming "${reminder.title}" of ${reminder.subject}, scheduled on ${reminder.date.toDateString()} at ${reminder.time}.\n\nPrepare accordingly.\n\nBest Regards,\nDepartment of Computer Application`
+  //     };
+  
+  //     // Send the email
+  //     await transporter.sendMail(mailOptions);
+  //     console.log('Reminder email sent successfully');
+  //   } catch (error) {
+  //     console.error('Error sending reminder email:', error);
+  //   }
+  // }

@@ -164,7 +164,8 @@ const SetReminder = () => {
                         <input 
                             type="date" 
                             value={date} 
-                            onChange={handleDateChange} 
+                            onChange={handleDateChange}
+                            onKeyDown={(e) => e.preventDefault()} 
                             required 
                         />
                         {errors.date && <span className={styles.error}>{errors.date}</span>}

@@ -120,8 +120,8 @@ const Resource = ({ folder }) => { // Accept folder prop
                         {/* Delete button */}
                         <button 
                             onClick={() => handleDelete(resource._id)} 
-                            style={{ backgroundColor: '#f44336', color: 'white', cursor: 'pointer', padding: '10px', marginTop: '10px', border: 'none', borderRadius: '5px' }}
-                        >
+                            style={{ backgroundColor: 'white', color: 'red', cursor: 'pointer', padding: '5px', border: '3px solid red', borderRadius: '50px', width:'90px', fontWeight:'bold' }}
+                            >
                             Delete
                         </button>
                     </div>
