@@ -46,7 +46,9 @@ const GrievancePosting = () => {
             window.location.reload();
         })
         .catch(error => {
+            window.alert("may be toxicity detected in the description");
             console.error('There was an error saving the grievance!', error);
+            window.location.reload();
         });
     };
 

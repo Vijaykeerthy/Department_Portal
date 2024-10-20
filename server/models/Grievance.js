@@ -21,7 +21,12 @@ const grievanceSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  status: {
+    type: String,
+    default: '',
+  },
 });
+
 
 const Grievance = mongoose.model('Grievance', grievanceSchema);
 

@@ -41,6 +41,7 @@ const ViewGrievances = () => {
                             <th>Description</th>
                             <th>Posted Date</th>
                             <th>Response</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +51,7 @@ const ViewGrievances = () => {
                                 <td>{grievance.description}</td>
                                 <td>{new Date(grievance.postedDate).toLocaleDateString()}</td>
                                 <td>{grievance.response || 'No response yet'}</td>
+                                <td>{grievance.status || ''}</td>
                             </tr>
                         ))}
                     </tbody>
